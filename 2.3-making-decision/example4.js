@@ -13,7 +13,12 @@ let allStudents = [
     let cont = 0;
 
     for (let i = 0; i < allStudents.length; i++) {
-        if (allStudents[i] >= 3 || allStudents[i] !== 'C-') {
+        if (isNaN(allStudents[i])) {
+            if (allStudents[i] !== 'C-') {
+            studentsWhoPass[cont] = i;
+            cont++;
+            }
+        } else if (allStudents[i] >= 3) {
             studentsWhoPass[cont] = i;
             cont++;
         }
