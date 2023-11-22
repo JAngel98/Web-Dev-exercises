@@ -24,7 +24,7 @@ let allStudents = [
         }
     }
 
-    console.log(studentsWhoPass);
+    console.log(studentsWhoPass); //Is the student index
 
   }
   
