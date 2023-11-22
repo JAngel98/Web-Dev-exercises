@@ -8,6 +8,7 @@ let allStudents = [
   ]
   
   let studentsWhoPass = [];
+  let studentsWhoPassIndex = [];
 
   function getStudentsWhoPass () {
     let cont = 0;
@@ -15,12 +16,27 @@ let allStudents = [
     for (let i = 0; i < allStudents.length; i++) {
         if (isNaN(allStudents[i])) {
             if (allStudents[i] !== 'C-') {
-            studentsWhoPass[cont] = i;
+            studentsWhoPassIndex[cont] = i;
             cont++;
             }
         } else if (allStudents[i] >= 3) {
-            studentsWhoPass[cont] = i;
+            studentsWhoPassIndex[cont] = i;
             cont++;
+        }
+    }
+
+    console.log(studentsWhoPassIndex); //Is the student index
+
+  }
+  
+  function getStudentsWhoPassByPush () {
+    for (let i = 0; i < allStudents.length; i++) {
+        if (isNaN(allStudents[i])) {
+            if (allStudents[i] !== 'C-') {
+            studentsWhoPass.push(allStudents[i])
+            }
+        } else if (allStudents[i] >= 3) {
+            studentsWhoPass.push(allStudents[i])
         }
     }
 
@@ -29,4 +45,5 @@ let allStudents = [
   }
   
   getStudentsWhoPass();
+  getStudentsWhoPassByPush();
   
