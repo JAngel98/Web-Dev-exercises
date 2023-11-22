@@ -22,3 +22,5 @@ let allStudents = [
     console.log(studentsWhoPass.map());
 
   }
+  
+  getStudentsWhoPass();
