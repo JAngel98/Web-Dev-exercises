@@ -46,14 +46,17 @@ function dragElement(terrariumElement) {
 		pos1 = pos3 - e.clientX;
 		// pos2 = where the Ymouse WAS - where it IS
 		pos2 = pos4 - e.clientY;
+		
+		console.log(pos1, pos2, pos3, pos4, e.clientX, e.clientY,);
 		//reset pos3 to current location of Xmouse
 		pos3 = e.clientX;
 		//reset pos4 to current location of Ymouse
 		pos4 = e.clientY;
-		console.log(pos1, pos2, pos3, pos4);
+		
 		// set the element's new position:
 		terrariumElement.style.top = terrariumElement.offsetTop - pos2 + 'px';
 		terrariumElement.style.left = terrariumElement.offsetLeft - pos1 + 'px';
+		console.log(terrariumElement.offsetTop, terrariumElement.offsetLeft, terrariumElement.offsetTop - pos2, terrariumElement.offsetLeft - pos1);
 	}
 
 	function stopElementDrag() {
