@@ -1,9 +1,11 @@
 body {
 	font-family: helvetica, arial, sans-serif;
+	background: var(--bgColor);
+	color: var(--fontColor);
 }
 
 h1 {
-	color: #3a241d;
+	color: var(--h1Color);
 	text-align: center;
 }
 
@@ -84,22 +86,54 @@ h1 {
 	z-index: -1;
 }
 
-.jar-glossy-long {
-	width: 3%;
-	height: 20%;
-	border-radius: 2rem;
-	background: #ddfbff;
+.jar-glossy-short {
 	position: absolute;
-	bottom: 20%;
+	height: 8%;
+	width: 3%;
+	background-color: #eee;
 	left: 5%;
+	top: 40%;
+	opacity: 0.9;
+	border-radius: 1rem;
+
 }
 
-.jar-glossy-short {
-	width: 3%;
-	height: 5%;
-	border-radius: 2rem;
-	background: #ddfbff;
+.jar-glossy-long {
 	position: absolute;
-	bottom: 45%;
+	height: 15%;
+	width: 3%;
+	background-color: #eee;
 	left: 5%;
+	top: 50%;
+	opacity: 0.9;
+	border-radius: 1rem;
+
+}
+
+.btn {
+	position: absolute;
+	background-color: var(--btnBg);
+	color: var(--btnFontColor);
+	height: 50px;
+	width: 50px;
+	border-radius: 50%;
+	border: none;
+	top: 20px;
+	left: 300px;
+	text-align: center;
+}
+
+.light-theme {
+	--btnBg: blueviolet;
+	--btnFontColor: white;
+	--bgColor: white;
+	--fontColor: black;
+	--h1Color: #3a241d;
+}
+
+.dark-theme {
+	--btnBg: white;
+	--btnFontColor: black;
+	--bgColor: rgb(29, 28, 28);
+	--fontColor: white;
 }

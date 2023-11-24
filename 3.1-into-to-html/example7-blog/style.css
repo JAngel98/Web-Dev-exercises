@@ -4,6 +4,8 @@ body {
 
 h1 {
     margin-left: 5%;
+    color: white;
+    text-size-adjust: relative;
 }
 
 h3 {
@@ -11,8 +13,7 @@ h3 {
 }
 
 #side-content {
-    margin-left: 5%;
-    margin-right: 5%;
+    padding: 0.5rem;
 }
 
 .header-content {
@@ -28,7 +29,7 @@ h3 {
     background-color: beige;
     position: absolute;
     top: 20%;
-    left: 0px;
+    left: -10px;
     height: auto;
     width: 20%;
 }
