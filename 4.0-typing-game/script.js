@@ -22,6 +22,7 @@ document.getElementById('start').addEventListener('click', () => {
 	typedValueElement.addEventListener('input', inputHandler);
 	typedValueElement.className = '';
 	typedValueElement.value = "";
+    typedValueElement.removeAttribute("readonly");
 	// get a quote
     const quoteIndex = Math.floor(Math.random() * quotes.length);
     const quote = quotes[quoteIndex];
@@ -63,6 +64,7 @@ function inputHandler() {
     const elapsedTime = new Date().getTime() - startTime;
     const message = `CONGRATULATIONS! You finished in ${elapsedTime / 1000} seconds.`;
     messageElement.innerText = message;
+    typedValueElement.setAttribute("readonly", "");
 
   } else if (typedValue.endsWith(' ') && typedValue.trim() === currentWord) {
     // end of word
