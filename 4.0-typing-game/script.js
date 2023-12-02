@@ -1,11 +1,11 @@
 const quotes = [
-    'When you have eliminated the impossible, whatever remains, however improbable, must be the truth.',
-    'There is nothing more deceptive than an obvious fact.',
-    'I ought to know by this time that when a fact appears to be opposed to a long train of deductions it invariably proves to be capable of bearing some other interpretation.',
-    'I never make exceptions. An exception disproves the rule.',
-    'What one man can invent another can discover.',
-    'Nothing clears up a case so much as stating it to another person.',
-    'Education never ends, Watson. It is a series of lessons, with the greatest for the last.',
+    'When you have eliminated',
+    'There is nothing',
+    'I ought to know',
+    'I never make exceptions',
+    'What one man can invent',
+    'Nothing clears up a case',
+    'Education never ends',
 ];
 
 // store the list of words and the index of the word the player is currently typing
@@ -13,12 +13,16 @@ let words = [];
 let wordIndex = 0;
 // the starting time
 let startTime = Date.now();
+// Score array
+let scoresList = [];
+let quotesList = [];
 // page elements
 const quoteElement = document.getElementById('quote');
 const messageElement = document.getElementById('message');
 const dialogElement = document.getElementById('dialog-message');
 const typedValueElement = document.getElementById('typed-value');
 const closeButton = document.getElementById('close-message');
+const scoreElm = document.getElementById('scores');
 
 document.getElementById('start').addEventListener('click', () => {
 	typedValueElement.addEventListener('input', inputHandler);
@@ -60,10 +64,14 @@ function inputHandler() {
   // get the current value
   const typedValue = typedValueElement.value;
 
+  let elapsedTime = 0;
+
   if (typedValue === currentWord && wordIndex === words.length - 1) {
     // end of sentence
     // Display success
-    showDialog();
+    elapsedTime = new Date().getTime() - startTime;
+    saveScore(elapsedTime / 1000);
+    showDialog(elapsedTime);
     typedValueElement.setAttribute("readonly", "");
     typedValueElement.value = '';
 
@@ -94,9 +102,10 @@ closeButton.addEventListener('click', () => {
     dialogElement.close();
 });
 
-function showDialog() {
-    const elapsedTime = new Date().getTime() - startTime;
-    const message = `CONGRATULATIONS! You finished in ${elapsedTime / 1000} seconds.`;
+document.getElementById('show-score-btn').addEventListener('click', showScores);
+
+function showDialog(time) {
+    const message = `CONGRATULATIONS! You finished in ${time / 1000} seconds.`;
     messageElement.innerText = message;
  
     dialogElement.showModal();
@@ -109,4 +118,20 @@ function openCheck(dialog) {
     } else {
         console.log("Dialogo cerrado");
     }
+}
+
+function saveScore(score) {
+    scoresList.push(score);
+    quotesList.push(words.join(' '));
+}
+
+function showScores() {
+    scoreElm.innerHTML = '';
+    let registro = '';
+
+    for (let i = 0; i < scoresList.length; i++) {
+        registro += scoresList[i] + ' -> ' + quotesList[i] + '<br/>';
+    }
+
+    scoreElm.innerHTML = registro;
 }
