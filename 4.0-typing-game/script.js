@@ -65,6 +65,7 @@ function inputHandler() {
     // Display success
     showDialog();
     typedValueElement.setAttribute("readonly", "");
+    typedValueElement.value = '';
 
   } else if (typedValue.endsWith(' ') && typedValue.trim() === currentWord) {
     // end of word
