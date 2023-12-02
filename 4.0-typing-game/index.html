@@ -8,11 +8,16 @@
         <h1>Typing game!</h1>
         <p>Practice your typing skills with a quote from Sherlock Holmes. Click **start** to begin!</p>
         <p id="quote"></p>
-        <p id="message"></p>
         <div>
             <input type="text" aria-label="current word" id="typed-value">
             <button type="button" id="start">Start</button>
         </div>
+        <dialog id="dialog-message">
+            <form method="dialog">
+                <p id="message"></p>
+                <button id="close-message">Cerrar</button>
+            </form>
+        </dialog>
         <script src="script.js"></script>
     </body>
 </html>

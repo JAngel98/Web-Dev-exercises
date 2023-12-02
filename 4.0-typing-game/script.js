@@ -16,7 +16,9 @@ let startTime = Date.now();
 // page elements
 const quoteElement = document.getElementById('quote');
 const messageElement = document.getElementById('message');
+const dialogElement = document.getElementById('dialog-message');
 const typedValueElement = document.getElementById('typed-value');
+const closeButton = document.getElementById('close-message');
 
 document.getElementById('start').addEventListener('click', () => {
 	typedValueElement.addEventListener('input', inputHandler);
@@ -61,9 +63,7 @@ function inputHandler() {
   if (typedValue === currentWord && wordIndex === words.length - 1) {
     // end of sentence
     // Display success
-    const elapsedTime = new Date().getTime() - startTime;
-    const message = `CONGRATULATIONS! You finished in ${elapsedTime / 1000} seconds.`;
-    messageElement.innerText = message;
+    showDialog();
     typedValueElement.setAttribute("readonly", "");
 
   } else if (typedValue.endsWith(' ') && typedValue.trim() === currentWord) {
@@ -88,3 +88,24 @@ function inputHandler() {
     typedValueElement.className = 'error';
   }
 };
+
+closeButton.addEventListener('click', () => {
+    dialogElement.close();
+});
+
+function showDialog() {
+    const elapsedTime = new Date().getTime() - startTime;
+    const message = `CONGRATULATIONS! You finished in ${elapsedTime / 1000} seconds.`;
+    messageElement.innerText = message;
+ 
+    dialogElement.showModal();
+    openCheck(dialogElement);
+}
+
+function openCheck(dialog) {
+    if (dialog.open) {
+        console.log("Dialogo abierto");
+    } else {
+        console.log("Dialogo cerrado");
+    }
+}
