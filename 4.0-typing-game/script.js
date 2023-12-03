@@ -1,11 +1,11 @@
 const quotes = [
-    'When you have eliminated',
-    'There is nothing',
-    'I ought to know',
-    'I never make exceptions',
-    'What one man can invent',
-    'Nothing clears up a case',
-    'Education never ends',
+  'When you have eliminated the impossible, whatever remains, however improbable, must be the truth.',
+  'There is nothing more deceptive than an obvious fact.',
+  'I ought to know by this time that when a fact appears to be opposed to a long train of deductions it invariably proves to be capable of bearing some other interpretation.',
+  'I never make exceptions. An exception disproves the rule.',
+  'What one man can invent another can discover.',
+  'Nothing clears up a case so much as stating it to another person.',
+  'Education never ends, Watson. It is a series of lessons, with the greatest for the last.',
 ];
 
 // store the list of words and the index of the word the player is currently typing
@@ -75,10 +75,10 @@ function inputHandler() {
     // end of sentence
     // Display success
     elapsedTime = new Date().getTime() - startTime;
-    saveScore(elapsedTime / 1000);
+    showDialog(elapsedTime);
+    saveScore(elapsedTime);
     showHighScore();
     showScores();
-    showDialog(elapsedTime);
     typedValueElement.setAttribute("readonly", "");
     typedValueElement.value = '';
 
@@ -105,6 +105,11 @@ function inputHandler() {
   }
 };
 
+document.getElementById('reset-high-score-record-btn').addEventListener('click', () => {
+  localStorage.clear();
+  getHighScore();
+});
+
 closeButton.addEventListener('click', () => {
   dialogElement.close();
 });
@@ -112,6 +117,8 @@ closeButton.addEventListener('click', () => {
 function showDialog(time) {
   const score = time / 1000;
   const message = `CONGRATULATIONS! You finished in ${score} seconds.`;
+
+  console.log(score, high);
 
   if (score < high) {
     messageElement.innerText = message + ' ( --NEW HIGH SCORE!!-- )';
@@ -132,7 +139,7 @@ function openCheck(dialog) {
 }
 
 function saveScore(score) {
-  scoresList.push(score);
+  scoresList.push(score / 1000);
   quotesList.push(words.join(' '));
 }
 
