@@ -16,6 +16,8 @@ let startTime = Date.now();
 // Score array
 let scoresList = [];
 let quotesList = [];
+// High score
+let high;
 // page elements
 const quoteElement = document.getElementById('quote');
 const messageElement = document.getElementById('message');
@@ -23,6 +25,9 @@ const dialogElement = document.getElementById('dialog-message');
 const typedValueElement = document.getElementById('typed-value');
 const closeButton = document.getElementById('close-message');
 const scoreElm = document.getElementById('scores');
+const highScoreElm = document.getElementById('high-score');
+
+getHighScore();
 
 document.getElementById('start').addEventListener('click', () => {
 	typedValueElement.addEventListener('input', inputHandler);
@@ -71,6 +76,8 @@ function inputHandler() {
     // Display success
     elapsedTime = new Date().getTime() - startTime;
     saveScore(elapsedTime / 1000);
+    showHighScore();
+    showScores();
     showDialog(elapsedTime);
     typedValueElement.setAttribute("readonly", "");
     typedValueElement.value = '';
@@ -99,39 +106,73 @@ function inputHandler() {
 };
 
 closeButton.addEventListener('click', () => {
-    dialogElement.close();
+  dialogElement.close();
 });
 
-document.getElementById('show-score-btn').addEventListener('click', showScores);
-
 function showDialog(time) {
-    const message = `CONGRATULATIONS! You finished in ${time / 1000} seconds.`;
-    messageElement.innerText = message;
- 
-    dialogElement.showModal();
-    openCheck(dialogElement);
+  const message = `CONGRATULATIONS! You finished in ${time / 1000} seconds.`;
+  messageElement.innerText = message;
+
+  dialogElement.showModal();
+  openCheck(dialogElement);
 }
 
 function openCheck(dialog) {
-    if (dialog.open) {
-        console.log("Dialogo abierto");
-    } else {
-        console.log("Dialogo cerrado");
-    }
+  if (dialog.open) {
+      console.log("Dialogo abierto");
+  } else {
+      console.log("Dialogo cerrado");
+  }
 }
 
 function saveScore(score) {
-    scoresList.push(score);
-    quotesList.push(words.join(' '));
+  scoresList.push(score);
+  quotesList.push(words.join(' '));
 }
 
 function showScores() {
-    scoreElm.innerHTML = '';
-    let registro = '';
+  scoreElm.innerHTML = '';
+  let registro = '';
 
-    for (let i = 0; i < scoresList.length; i++) {
-        registro += scoresList[i] + ' -> ' + quotesList[i] + '<br/>';
+  for (let i = 0; i < scoresList.length; i++) {
+      registro += scoresList[i] + ' -> ' + quotesList[i] + '<br/>';
+  }
+
+  scoreElm.innerHTML = registro;
+}
+
+function showHighScore() {
+  let temp = scoresList[0];
+
+  for (let i = 1; i < scoresList.length; i++) {
+    if (temp > scoresList[i]) {  // the highest score is the shortest time.
+      temp = scoresList[i];
     }
+  }
 
-    scoreElm.innerHTML = registro;
+  if (temp < high) {
+    high = temp;
+  }
+
+  highScoreElm.innerText = high;
+
+  saveHighScoreInLocal();
+
+}
+
+function getHighScore() {
+  high = localStorage.getItem('high-score');
+
+  if (!high) {
+    highScoreElm.innerText = "No hay registro anterior."
+    high = 9999.99;
+  } else {
+    highScoreElm.innerText = high;
+  }
+
+}
+
+function saveHighScoreInLocal() {
+  localStorage.setItem('high-score', high);
+  // console.log(highScoreElm.innerText);
 }
