@@ -110,8 +110,14 @@ closeButton.addEventListener('click', () => {
 });
 
 function showDialog(time) {
-  const message = `CONGRATULATIONS! You finished in ${time / 1000} seconds.`;
-  messageElement.innerText = message;
+  const score = time / 1000;
+  const message = `CONGRATULATIONS! You finished in ${score} seconds.`;
+
+  if (score < high) {
+    messageElement.innerText = message + ' ( --NEW HIGH SCORE!!-- )';
+  } else {
+    messageElement.innerText = message;
+  }
 
   dialogElement.showModal();
   openCheck(dialogElement);
