@@ -1,6 +1,11 @@
 //1
 // form fields
+const form = document.querySelector('.form-data');
+const region = document.querySelector('.region-name');
+const apiKey = document.querySelector('.api-key');
+
 // results divs
+
 
 //6
 //call the API
