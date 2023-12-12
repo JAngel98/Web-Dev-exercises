@@ -23,6 +23,36 @@ const clearBtn = document.querySelector('.clear-btn');
 // handle form submission
 
 //3 initial checks
+function init() {
+	//if anything is in localStorage, pick it up
+	const storedApiKey = localStorage.getItem('apiKey');
+	const storedRegion = localStorage.getItem('regionName');
+
+	//set icon to be generic green
+	//to-do
+
+	if (storedApiKey === null || storedRegion === null) {
+		//if we don't have the keys, show the form
+		form.style.display = 'block';
+		results.style.display = 'none';
+		loading.style.display = 'none';
+		clearBtn.style.display = 'none';
+		errors.textContent = '';
+	} else {
+        //if we have saved keys/regions in localStorage, show results when they load
+        displayCarbonUsage(storedApiKey, storedRegion);
+		results.style.display = 'none';
+		form.style.display = 'none';
+		clearBtn.style.display = 'block';
+	}
+};
+
+function reset(e) {
+	e.preventDefault();
+	//clear local storage for region only
+	localStorage.removeItem('regionName');
+	init();
+}
 
 //2
 form.addEventListener('submit', (e) => handleSubmit(e));
