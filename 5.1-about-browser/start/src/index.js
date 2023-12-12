@@ -25,4 +25,7 @@ const clearBtn = document.querySelector('.clear-btn');
 //3 initial checks
 
 //2
-// set listeners and start app
+form.addEventListener('submit', (e) => handleSubmit(e));
+clearBtn.addEventListener('click', (e) => reset(e));
+
+init();
