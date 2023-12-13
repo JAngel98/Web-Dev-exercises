@@ -21,7 +21,7 @@ async function displayCarbonUsage(apiKey, region) {
 		await axios
 			.get('https://api.co2signal.com/v1/latest', {
 				params: {
-					countryCode: region,
+					countryName: region,
 				},
 				headers: {
 					'auth-token': apiKey,
@@ -95,7 +95,7 @@ function init() {
 };
 
 function reset(e) {
-	//e.preventDefault();
+	e.preventDefault();
 	//clear local storage for region only
 	localStorage.removeItem('regionName');
 	init();
