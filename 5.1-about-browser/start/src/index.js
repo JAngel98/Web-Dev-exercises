@@ -1,4 +1,4 @@
-import axios from '../node_modules/axios';
+// import axios from '../node_modules/axios';
 //1
 // form fields
 const form = document.querySelector('.form-data');
@@ -19,27 +19,28 @@ const clearBtn = document.querySelector('.clear-btn');
 async function displayCarbonUsage(apiKey, region) {
 	try {
 		await axios
-			.get('https://api.co2signal.com/v1/latest', {
+			.get(`https://api.github.com/users/${apiKey}/repos`, {
 				params: {
-					countryName: region,
+					sort: region,
 				},
-				headers: {
-					'auth-token': apiKey,
-				},
+				// headers: {
+				// 	'auth-token': apiKey,
+				// },
 			})
 			.then((response) => {
-				let CO2 = Math.floor(response.data.data.carbonIntensity);
-
+				// let CO2 = Math.floor(response.data.data.carbonIntensity);
+                // let names = response;
 				//calculateColor(CO2);
-
+                
 				loading.style.display = 'none';
 				form.style.display = 'none';
-				myregion.textContent = region;
-				usage.textContent =
-					Math.round(response.data.data.carbonIntensity) + ' grams (grams C02 emitted per kilowatt hour)';
-				fossilfuel.textContent =
-					response.data.data.fossilFuelPercentage.toFixed(2) +
-					'% (percentage of fossil fuels used to generate electricity)';
+				myregion.textContent = apiKey;
+				// usage.textContent =
+				// 	Math.round(response.data.data.carbonIntensity) + ' grams (grams C02 emitted per kilowatt hour)';
+                usage.textContent = response;
+				// fossilfuel.textContent =
+				// 	response.data.data.fossilFuelPercentage.toFixed(2) +
+				// 	'% (percentage of fossil fuels used to generate electricity)';
 				results.style.display = 'block';
 			});
 	} catch (error) {
@@ -66,6 +67,7 @@ function setUpUser(apiKey, regionName) {
 // handle form submission
 function handleSubmit(e) {
     e.preventDefault();
+    console.log('Setting up user session...');
     setUpUser(apiKey.value, region.value);
 }
 
