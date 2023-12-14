@@ -1,4 +1,4 @@
-// import axios from '../node_modules/axios';
+import axios from '../node_modules/axios';
 //1
 // form fields
 const form = document.querySelector('.form-data');
@@ -37,7 +37,7 @@ async function displayCarbonUsage(apiKey, region) {
 				myregion.textContent = apiKey;
 				// usage.textContent =
 				// 	Math.round(response.data.data.carbonIntensity) + ' grams (grams C02 emitted per kilowatt hour)';
-                usage.textContent = response;
+                usage.textContent = response.data[0].url;
 				// fossilfuel.textContent =
 				// 	response.data.data.fossilFuelPercentage.toFixed(2) +
 				// 	'% (percentage of fossil fuels used to generate electricity)';
