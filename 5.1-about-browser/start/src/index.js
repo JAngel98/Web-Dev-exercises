@@ -1,4 +1,4 @@
-import axios from '../node_modules/axios';
+// import axios from '../node_modules/axios';
 //1
 // form fields
 const form = document.querySelector('.form-data');
@@ -17,27 +17,28 @@ const clearBtn = document.querySelector('.clear-btn');
 //6
 //call the API
 async function displayCarbonUsage(apiKey, region) {
-	try {
+	console.log(apiKey, region);
+    try {
 		await axios
-			.get(`https://api.github.com/users/${apiKey}/repos`, {
-				params: {
-					sort: region,
-				},
-				// headers: {
-				// 	'auth-token': apiKey,
-				// },
-			})
+            .get('https://api.carbonintensity.org.uk/intensity', {
+                // params: {
+                //     countryCode: region,
+                //     zone: 'CU',
+                // },
+                headers: {
+                    'Accept': 'application/json',
+                },
+            })
 			.then((response) => {
 				// let CO2 = Math.floor(response.data.data.carbonIntensity);
-                // let names = response;
+                console.log(response);
 				//calculateColor(CO2);
                 
 				loading.style.display = 'none';
 				form.style.display = 'none';
-				myregion.textContent = apiKey;
-				// usage.textContent =
-				// 	Math.round(response.data.data.carbonIntensity) + ' grams (grams C02 emitted per kilowatt hour)';
-                usage.textContent = response.data[0].url;
+				myregion.textContent = region;
+				usage.textContent =
+					response.data.data[0].intensity.forecast;
 				// fossilfuel.textContent =
 				// 	response.data.data.fossilFuelPercentage.toFixed(2) +
 				// 	'% (percentage of fossil fuels used to generate electricity)';
