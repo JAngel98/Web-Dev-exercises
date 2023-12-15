@@ -2,8 +2,8 @@
 //1
 // form fields
 const form = document.querySelector('.form-data');
-const region = document.querySelector('.region-name');
-const apiKey = document.querySelector('.api-key');
+const regionNameElm = document.querySelector('.region-name');
+const apiKeyElm = document.querySelector('.api-key');
 
 // results divs
 const errors = document.querySelector('.errors');
@@ -13,11 +13,11 @@ const usage = document.querySelector('.carbon-usage');
 const fossilfuel = document.querySelector('.fossil-fuel');
 const myregion = document.querySelector('.my-region');
 const clearBtn = document.querySelector('.clear-btn');
+const reloadBtn = document.querySelector('.reload-btn');
 
 //6
 //call the API
 async function displayCarbonUsage(apiKey, region) {
-	console.log(apiKey, region);
     try {
 		await axios
             .get('https://api.carbonintensity.org.uk/intensity', {
@@ -54,14 +54,14 @@ async function displayCarbonUsage(apiKey, region) {
 
 //5
 //set up user's api key and region
-function setUpUser(apiKey, regionName) {
+function setUpUser(apiKey, region) {
 	localStorage.setItem('apiKey', apiKey);
-	localStorage.setItem('regionName', regionName);
+	localStorage.setItem('regionName', region);
 	loading.style.display = 'block';
 	errors.textContent = '';
 	clearBtn.style.display = 'block';
 	//make initial call
-	displayCarbonUsage(apiKey, regionName);
+	displayCarbonUsage(apiKey, region);
 }
 
 //4
@@ -69,7 +69,7 @@ function setUpUser(apiKey, regionName) {
 function handleSubmit(e) {
     e.preventDefault();
     console.log('Setting up user session...');
-    setUpUser(apiKey.value, region.value);
+    setUpUser(apiKeyElm.value, regionNameElm.value);
 }
 
 //3 initial checks
@@ -77,7 +77,7 @@ function init() {
 	//if anything is in localStorage, pick it up
 	const storedApiKey = localStorage.getItem('apiKey');
 	const storedRegion = localStorage.getItem('regionName');
-
+    console.log(`Loaded apiKey: ${storedApiKey} & region: ${storedRegion}`);
 	//set icon to be generic green
 	//to-do
 
@@ -107,5 +107,6 @@ function reset(e) {
 //2
 form.addEventListener('submit', (e) => handleSubmit(e));
 clearBtn.addEventListener('click', (e) => reset(e));
+reloadBtn.addEventListener('click', () => init());
 
 init();
