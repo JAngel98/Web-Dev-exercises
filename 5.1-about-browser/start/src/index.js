@@ -9,7 +9,9 @@ const apiKeyElm = document.querySelector('.api-key');
 const errors = document.querySelector('.errors');
 const loading = document.querySelector('.loading');
 const results = document.querySelector('.result-container');
-const usage = document.querySelector('.carbon-usage');
+const usageForecast = document.querySelector('.carbon-forecast');
+const usageActual = document.querySelector('.carbon-actual');
+const usageIndex = document.querySelector('.carbon-index');
 const fossilfuel = document.querySelector('.fossil-fuel');
 const myregion = document.querySelector('.my-region');
 const clearBtn = document.querySelector('.clear-btn');
@@ -31,14 +33,19 @@ async function displayCarbonUsage(apiKey, region) {
             })
 			.then((response) => {
 				// let CO2 = Math.floor(response.data.data.carbonIntensity);
-                console.log(response);
+                // console.log(response);
 				//calculateColor(CO2);
                 
 				loading.style.display = 'none';
 				form.style.display = 'none';
+                errors.style.display = 'none';
 				myregion.textContent = region;
-				usage.textContent =
-					response.data.data[0].intensity.forecast;
+				usageForecast.innerHTML =
+					response.data.data[0].intensity.forecast + ' grams/kWh CO<sub>2</sub>';
+                usageActual.innerHTML =
+					response.data.data[0].intensity.actual + ' grams/kWh CO<sub>2</sub>';
+                usageIndex.textContent =
+					response.data.data[0].intensity.index.toUpperCase();
 				// fossilfuel.textContent =
 				// 	response.data.data.fossilFuelPercentage.toFixed(2) +
 				// 	'% (percentage of fossil fuels used to generate electricity)';
