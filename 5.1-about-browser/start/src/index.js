@@ -3,7 +3,7 @@
 // form fields
 const form = document.querySelector('.form-data');
 const regionNameElm = document.querySelector('.region-name');
-const apiKeyElm = document.querySelector('.api-key');
+// const apiKeyElm = document.querySelector('.api-key');
 
 // results divs
 const errors = document.querySelector('.errors');
@@ -16,59 +16,79 @@ const fossilfuel = document.querySelector('.fossil-fuel');
 const myregion = document.querySelector('.my-region');
 const clearBtn = document.querySelector('.clear-btn');
 const reloadBtn = document.querySelector('.reload-btn');
+const resultBtn = document.getElementById('result-btns');
 
 //6
 //call the API
-async function displayCarbonUsage(apiKey, region) {
+function generateLink(region) {
+	if (region == 0) {
+		return 'https://api.carbonintensity.org.uk/intensity';
+	} else {
+		return 'https://api.carbonintensity.org.uk/regional/regionid/' + region;
+	}
+}
+
+function displayCarbonUsage(response, region) {
+	if (region == 0) {
+		loading.style.display = 'none';
+		form.style.display = 'none';
+		errors.style.display = 'none';
+		myregion.textContent = "Global";
+		usageForecast.innerHTML =
+			response.data.data[0].intensity.forecast + ' gCO<sub>2</sub>/kWh';
+		usageActual.innerHTML =
+			response.data.data[0].intensity.actual + ' gCO<sub>2</sub>/kWh';
+		usageIndex.textContent =
+			response.data.data[0].intensity.index.toUpperCase();
+		fossilfuel.textContent = "-";
+		results.style.display = 'block';
+	} else {
+		loading.style.display = 'none';
+		form.style.display = 'none';
+		errors.style.display = 'none';
+		myregion.textContent = 
+			response.data.data[0].shortname;
+		usageForecast.innerHTML =
+			response.data.data[0].data[0].intensity.forecast + ' gCO<sub>2</sub>/kWh';
+		usageActual.innerHTML = "-";
+		usageIndex.textContent =
+			response.data.data[0].data[0].intensity.index.toUpperCase();
+		fossilfuel.textContent =
+			response.data.data[0].data[0].generationmix[3].perc + '%';
+		results.style.display = 'block';
+	}
+}
+
+async function getCarbonUsage(region) {
     try {
 		await axios
-            .get('https://api.carbonintensity.org.uk/intensity', {
-                // params: {
-                //     countryCode: region,
-                //     zone: 'CU',
-                // },
+            .get(generateLink(region), {
                 headers: {
                     'Accept': 'application/json',
                 },
             })
-			.then((response) => {
-				// let CO2 = Math.floor(response.data.data.carbonIntensity);
-                // console.log(response);
-				//calculateColor(CO2);
-                
-				loading.style.display = 'none';
-				form.style.display = 'none';
-                errors.style.display = 'none';
-				myregion.textContent = region;
-				usageForecast.innerHTML =
-					response.data.data[0].intensity.forecast + ' grams/kWh CO<sub>2</sub>';
-                usageActual.innerHTML =
-					response.data.data[0].intensity.actual + ' grams/kWh CO<sub>2</sub>';
-                usageIndex.textContent =
-					response.data.data[0].intensity.index.toUpperCase();
-				// fossilfuel.textContent =
-				// 	response.data.data.fossilFuelPercentage.toFixed(2) +
-				// 	'% (percentage of fossil fuels used to generate electricity)';
-				results.style.display = 'block';
+			.then((response) => {                
+				displayCarbonUsage(response, region);
 			});
 	} catch (error) {
 		console.log(error);
 		loading.style.display = 'none';
 		results.style.display = 'none';
+		form.style.display = 'none';
 		errors.textContent = 'Sorry, we have no data for the region you have requested.';
 	}
 }
 
 //5
 //set up user's api key and region
-function setUpUser(apiKey, region) {
-	localStorage.setItem('apiKey', apiKey);
+function setUpUser(region) {
+	// localStorage.setItem('apiKey', apiKey);
 	localStorage.setItem('regionName', region);
 	loading.style.display = 'block';
 	errors.textContent = '';
-	clearBtn.style.display = 'block';
+	resultBtn.style.display = 'block';
 	//make initial call
-	displayCarbonUsage(apiKey, region);
+	getCarbonUsage(region);
 }
 
 //4
@@ -76,31 +96,32 @@ function setUpUser(apiKey, region) {
 function handleSubmit(e) {
     e.preventDefault();
     console.log('Setting up user session...');
-    setUpUser(apiKeyElm.value, regionNameElm.value);
+    setUpUser(regionNameElm.value);
 }
 
 //3 initial checks
 function init() {
 	//if anything is in localStorage, pick it up
-	const storedApiKey = localStorage.getItem('apiKey');
+	// const storedApiKey = localStorage.getItem('apiKey');
 	const storedRegion = localStorage.getItem('regionName');
-    console.log(`Loaded apiKey: ${storedApiKey} & region: ${storedRegion}`);
+    console.log(`Loaded region: ${storedRegion}`);
 	//set icon to be generic green
 	//to-do
 
-	if (storedApiKey === null || storedRegion === null) {
+	if (storedRegion === null) {
 		//if we don't have the keys, show the form
 		form.style.display = 'block';
 		results.style.display = 'none';
 		loading.style.display = 'none';
-		clearBtn.style.display = 'none';
+		resultBtn.style.display = 'none';
 		errors.textContent = '';
 	} else {
         //if we have saved keys/regions in localStorage, show results when they load
-        displayCarbonUsage(storedApiKey, storedRegion);
+        loading.style.display = 'block';
+		getCarbonUsage(storedRegion);
 		results.style.display = 'none';
 		form.style.display = 'none';
-		clearBtn.style.display = 'block';
+		resultBtn.style.display = 'block';
 	}
 };
 
