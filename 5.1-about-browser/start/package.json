@@ -1,7 +1,7 @@
 {
 	"name": "carbon-trigger-extension",
-	"version": "1.0.0",
-	"description": "",
+	"version": "2.0.0",
+	"description": "This extension uses the API provided at https://api.carbonintensity.org.uk/",
 	"main": "index.js",
 	"engines": {
 		"npm": ">=9.0.0",
