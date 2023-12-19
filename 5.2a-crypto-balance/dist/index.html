@@ -6,10 +6,14 @@
     <title>Crypto Balance</title>
 </head>
 <body>
-    <input type="text" placeholder="Enter your API Key" id="api-key" />
-    <input type="text" placeholder="Enter your wallet address" id="wallet-address" />
+    <form id="form-data">
+        <div>
+            <input type="text" placeholder="Enter your API Key" id="api-key" required/>
+            <input type="text" placeholder="Enter your wallet addres's" id="wallet-address" required/>
+        </div>
+        <button id="get-info">Get info</button>
+    </form>
     <p><strong>Balance: </strong><span id="balance"></span></p>
-    <button id="get-info">Get info</button>
     <p>Powered by <a href="https://www.covalenthq.com/docs/api/" target="_blank">Covalent API</a></p>
     
     <script src="script.js"></script>

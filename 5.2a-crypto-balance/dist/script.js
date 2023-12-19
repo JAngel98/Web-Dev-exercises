@@ -1,4 +1,4 @@
-// import axios from 'axios';
+const form = document.getElementById('form-data');
 
 const apiKeyElm = document.getElementById('api-key');
 const wAddressElm = document.getElementById('wallet-address');
@@ -28,4 +28,7 @@ async function getBalance() {
 
 }
 
-getInfoBtn.addEventListener('click', getBalance);
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    getBalance();
+})
