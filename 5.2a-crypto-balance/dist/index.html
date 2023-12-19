@@ -8,7 +8,11 @@
 <body>
     <input type="text" placeholder="Enter your API Key" id="api-key" />
     <input type="text" placeholder="Enter your wallet address" id="wallet-address" />
-    <p><strong>Balance: </strong></p>
+    <p><strong>Balance: </strong><span id="balance"></span></p>
+    <button id="get-info">Get info</button>
     <p>Powered by <a href="https://www.covalenthq.com/docs/api/" target="_blank">Covalent API</a></p>
+    
+    <script src="script.js"></script>
+    <script src="axios.min.js"></script>
 </body>
 </html>
