@@ -3,6 +3,7 @@ const form = document.getElementById('form-data');
 const apiKeyElm = document.getElementById('api-key');
 const wAddressElm = document.getElementById('wallet-address');
 const balanceElm = document.getElementById('balance');
+const currencyElm = document.getElementById('currency');
 const getInfoBtn = document.getElementById('get-info');
 
 async function getBalance() {
@@ -18,7 +19,13 @@ async function getBalance() {
             })
             .then((response) => {
                 const balance = response.data.data.items[0].balance;
-                balanceElm.innerText = balance + ' BTC';
+                const decimals = response.data.data.items[0].contract_decimals;
+                const symbol = response.data.data.items[0].contract_ticker_symbol;
+                const quote = response.data.data.items[0].pretty_quote;
+                const currency = response.data.data.quote_currency;
+
+                balanceElm.innerText = balance / Math.pow(10, decimals) + ' ' + symbol;
+                currencyElm.innerText = quote + ' ' + currency;
                 console.log(response);
             });
 
