@@ -7,15 +7,15 @@ const currencyElm = document.getElementById('currency');
 const rateElm = document.getElementById('rate');
 const getInfoBtn = document.getElementById('get-info');
 
-async function getBalance() {
+async function getBalance(apiKey, walletAddress) {
     try {
         await axios
-            .get(`https://api.covalenthq.com/v1/btc-mainnet/address/${wAddressElm.value}/balances_v2/?`, {
+            .get(`https://api.covalenthq.com/v1/btc-mainnet/address/${walletAddress}/balances_v2/?`, {
                 headers: {
                     'Content-type': 'application/json',
                 },
                 auth: {
-                    username: apiKeyElm.value,
+                    username: apiKey,
                 },
             })
             .then((response) => {
@@ -44,5 +44,22 @@ async function getBalance() {
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
-    getBalance();
+
+    localStorage.setItem('api-key', apiKeyElm.value);
+    localStorage.setItem('wallet', wAddressElm.value);
+    getBalance(apiKeyElm.value, wAddressElm.value);
 })
+
+function init() {
+    const storedApiKey = localStorage.getItem('api-key');
+    const storedWallet = localStorage.getItem('wallet');
+    //to-do: const storedChain = localStorage.getItem('chain');
+
+    if (storedApiKey === null || storedWallet === null) {
+        //...
+    } else {
+        getBalance(storedApiKey, storedWallet);
+    }
+}
+
+init();
