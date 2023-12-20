@@ -25,10 +25,13 @@ async function getBalance() {
                 const quote = response.data.data.items[0].quote;
                 const currency = response.data.data.quote_currency;
                 const rate = response.data.data.items[0].quote_rate;
+                const rate24h = response.data.data.items[0].quote_rate_24h;
+                const rateChange = rate - rate24h;
+                const rateChangePt = (rateChange/rate24h) * 100;
 
                 balanceElm.innerText = balance / Math.pow(10, decimals) + ' ' + symbol;
                 currencyElm.innerText = quote.toFixed(2) + ' ' + currency;
-                rateElm.innerText = rate + ' ' + currency;
+                rateElm.innerText = rate + ' ' + currency + ' (' + rateChangePt.toFixed(2) + '%)';
 
                 console.log(response);
             });
