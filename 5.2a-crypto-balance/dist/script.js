@@ -1,4 +1,6 @@
+//Banner
 const logoElm = document.getElementById('logo');
+const contractName = document.getElementById('crypto-name');
 
 const form = document.getElementById('form-data');
 
@@ -32,6 +34,7 @@ async function getBalance(apiKey, walletAddress) {
                 const rateChangePt = (rateChange/rate24h) * 100;
 
                 logoElm.setAttribute('src', response.data.data.items[0].logo_url);
+                contractName.innerText = response.data.data.items[0].contract_name;
 
                 balanceElm.innerText = balance / Math.pow(10, decimals) + ' ' + symbol;
                 currencyElm.innerText = quote.toFixed(2) + ' ' + currency;

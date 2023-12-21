@@ -1,3 +1,16 @@
 .container {
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.banner {
+    display: flex;
+    align-items: center;
+}
+
+#logo {
+    height: 56px;
+    width: 56px;
 }

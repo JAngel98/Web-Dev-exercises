@@ -7,19 +7,24 @@
     <link rel="stylesheet" href="./style.css" />
 </head>
 <body class="container">
-    <div>
+    <div class="banner">
         <img id="logo" alt="crypto currency logo" src="" />
+        <p id="crypto-name"></p>
     </div>
-    <form id="form-data">
-        <div>
-            <input type="text" placeholder="Enter your API Key" id="api-key" required/>
-            <input type="text" placeholder="Enter your wallet addres's" id="wallet-address" required/>
-        </div>
-        <button id="get-info">Get info</button>
-    </form>
-    <p><strong>Balance: </strong><span id="balance"></span></p>
-    <p><strong>Currency: </strong><span id="currency"></span></p>
-    <p><strong>Rate: </strong><span id="rate"></span></p>
+    <!-- form -->
+    <div>
+        <form id="form-data">
+            <div>
+                <input type="text" placeholder="Enter your API Key" id="api-key" required/>
+                <input type="text" placeholder="Enter your wallet addres's" id="wallet-address" required/>
+            </div>
+            <button id="get-info">Get info</button>
+        </form>
+        <p><strong>Balance: </strong><span id="balance"></span></p>
+        <p><strong>Currency: </strong><span id="currency"></span></p>
+        <p><strong>Rate: </strong><span id="rate"></span></p>
+    </div>
+    
     <p>Powered by <a href="https://www.covalenthq.com/docs/api/" target="_blank">Covalent API</a></p>
     
     <script src="script.js" defer></script>
