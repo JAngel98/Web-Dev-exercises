@@ -6,9 +6,14 @@
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
-.banner {
+.result-banner {
     display: flex;
     align-items: center;
+    text-align: center;
+}
+
+#banner {
+    width: 50%;
 }
 
 #logo {
