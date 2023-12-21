@@ -23,6 +23,7 @@
 
 #result-container {
     text-align: left;
+    word-wrap: anywhere;
 }
 
 input, button {
