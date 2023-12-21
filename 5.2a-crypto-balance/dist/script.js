@@ -1,3 +1,5 @@
+const logoElm = document.getElementById('logo');
+
 const form = document.getElementById('form-data');
 
 const apiKeyElm = document.getElementById('api-key');
@@ -28,6 +30,8 @@ async function getBalance(apiKey, walletAddress) {
                 const rate24h = response.data.data.items[0].quote_rate_24h;
                 const rateChange = rate - rate24h;
                 const rateChangePt = (rateChange/rate24h) * 100;
+
+                logoElm.setAttribute('src', response.data.data.items[0].logo_url);
 
                 balanceElm.innerText = balance / Math.pow(10, decimals) + ' ' + symbol;
                 currencyElm.innerText = quote.toFixed(2) + ' ' + currency;
