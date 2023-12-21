@@ -10,6 +10,7 @@ const balanceElm = document.getElementById('balance');
 const currencyElm = document.getElementById('currency');
 const rateElm = document.getElementById('rate');
 const getInfoBtn = document.getElementById('get-info');
+const userWallet = document.getElementById('user-wallet');
 
 async function getBalance(apiKey, walletAddress) {
     try {
@@ -39,6 +40,7 @@ async function getBalance(apiKey, walletAddress) {
                 balanceElm.innerText = balance / Math.pow(10, decimals) + ' ' + symbol;
                 currencyElm.innerText = quote.toFixed(2) + ' ' + currency;
                 rateElm.innerText = rate + ' ' + currency + ' (' + rateChangePt.toFixed(2) + '%)';
+                userWallet.innerText = walletAddress;
 
                 console.log(response);
             });
