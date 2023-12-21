@@ -3,6 +3,7 @@ const logoElm = document.getElementById('logo');
 const contractName = document.getElementById('crypto-name');
 
 const form = document.getElementById('form-data');
+const resultContainer = document.getElementById('result-container');
 
 const apiKeyElm = document.getElementById('api-key');
 const wAddressElm = document.getElementById('wallet-address');
@@ -11,6 +12,9 @@ const currencyElm = document.getElementById('currency');
 const rateElm = document.getElementById('rate');
 const getInfoBtn = document.getElementById('get-info');
 const userWallet = document.getElementById('user-wallet');
+
+const changeWalletBtn = document.getElementById('change-wallet-btn');
+const refreshBalanceBtn = document.getElementById('refresh-balance-btn');
 
 async function getBalance(apiKey, walletAddress) {
     try {
@@ -56,8 +60,17 @@ form.addEventListener('submit', (e) => {
 
     localStorage.setItem('api-key', apiKeyElm.value);
     localStorage.setItem('wallet', wAddressElm.value);
-    getBalance(apiKeyElm.value, wAddressElm.value);
+    init();
 })
+
+refreshBalanceBtn.addEventListener('click', init);
+
+changeWalletBtn.addEventListener('click', reset);
+
+function reset() {
+    localStorage.removeItem('wallet');
+    init();
+}
 
 function init() {
     const storedApiKey = localStorage.getItem('api-key');
@@ -65,8 +78,11 @@ function init() {
     //to-do: const storedChain = localStorage.getItem('chain');
 
     if (storedApiKey === null || storedWallet === null) {
-        //...
+        form.style.display = 'block';
+        resultContainer.style.display = 'none';
     } else {
+        form.style.display = 'none';
+        resultContainer.style.display = 'block';
         getBalance(storedApiKey, storedWallet);
     }
 }
