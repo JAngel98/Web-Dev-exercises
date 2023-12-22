@@ -4,6 +4,7 @@ const contractName = document.getElementById('crypto-name');
 
 const form = document.getElementById('form-data');
 const resultContainer = document.getElementById('result-container');
+const loadingElm = document.getElementById('loading');
 
 const apiKeyElm = document.getElementById('api-key');
 const wAddressElm = document.getElementById('wallet-address');
@@ -46,6 +47,9 @@ async function getBalance(apiKey, walletAddress) {
                 rateElm.innerText = rate + ' ' + currency + ' (' + rateChangePt.toFixed(2) + '%)';
                 userWallet.innerText = walletAddress;
 
+                loadingElm.style.display = 'none';
+                resultContainer.style.display = 'block';
+
                 console.log(response);
             });
 
@@ -60,6 +64,7 @@ form.addEventListener('submit', (e) => {
 
     localStorage.setItem('api-key', apiKeyElm.value);
     localStorage.setItem('wallet', wAddressElm.value);
+
     init();
 })
 
@@ -79,11 +84,13 @@ function init() {
 
     if (storedApiKey === null || storedWallet === null) {
         form.style.display = 'block';
+        loadingElm.style.display = 'none';
         resultContainer.style.display = 'none';
     } else {
-        form.style.display = 'none';
-        resultContainer.style.display = 'block';
+        loadingElm.style.display = 'block';
+        resultContainer.style.display = 'none';
         getBalance(storedApiKey, storedWallet);
+        form.style.display = 'none';
     }
 }
 
