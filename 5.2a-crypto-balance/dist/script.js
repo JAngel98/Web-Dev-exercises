@@ -54,6 +54,9 @@ async function getBalance(apiKey, walletAddress) {
             });
 
     } catch (error) {
+        // to-do next//
+        // separar los botones de result-container
+        resultContainer.style.display = 'block';
         console.log(error);
     }
 
