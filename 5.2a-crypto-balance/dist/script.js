@@ -81,6 +81,26 @@ refreshBalanceBtn.addEventListener('click', init);
 
 changeWalletBtn.addEventListener('click', reset);
 
+async function getAllChains (apiKey) {
+    try {
+        await axios
+            .get(`https://api.covalenthq.com/v1/chains/?`, {
+                headers: {
+                    'Content-type': 'application/json',
+                },
+                auth: {
+                    username: apiKey,
+                },
+            })
+            .then((response) => {
+                console.log(response);
+            });
+
+    } catch (e) {
+        console.log(e);
+    }
+}
+
 function reset() {
     localStorage.removeItem('wallet');
     init();
@@ -90,6 +110,10 @@ function init() {
     const storedApiKey = localStorage.getItem('api-key');
     const storedWallet = localStorage.getItem('wallet');
     //to-do: const storedChain = localStorage.getItem('chain');
+
+    apiKeyElm.value = storedApiKey;
+
+    getAllChains(storedApiKey);
 
     if (storedApiKey === null || storedWallet === null) {
         form.style.display = 'block';
