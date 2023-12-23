@@ -15,15 +15,19 @@ const currencyElm = document.getElementById('currency');
 const rateElm = document.getElementById('rate');
 const getInfoBtn = document.getElementById('get-info');
 const userWallet = document.getElementById('user-wallet');
+const chains = document.getElementById('chains');
 
 const changeWalletBtn = document.getElementById('change-wallet-btn');
 const refreshBalanceBtn = document.getElementById('refresh-balance-btn');
 const resutlBtns = document.getElementById('result-btns');
 
+let chainList = [];
+let chainName = "";
+
 async function getBalance(apiKey, walletAddress) {
     try {
         await axios
-            .get(`https://api.covalenthq.com/v1/btc-mainnet/address/${walletAddress}/balances_v2/?`, {
+            .get(`https://api.covalenthq.com/v1/${chainName}/address/${walletAddress}/balances_v2/?`, {
                 headers: {
                     'Content-type': 'application/json',
                 },
@@ -54,7 +58,7 @@ async function getBalance(apiKey, walletAddress) {
                 errorContainer.style.display = 'none';
                 resultContainer.style.display = 'block';
 
-                console.log(response);
+                // console.log(response);
             });
 
     } catch (e) {
@@ -73,6 +77,7 @@ form.addEventListener('submit', (e) => {
 
     localStorage.setItem('api-key', apiKeyElm.value);
     localStorage.setItem('wallet', wAddressElm.value);
+    localStorage.setItem('chain', chainName);
 
     init();
 })
@@ -81,7 +86,11 @@ refreshBalanceBtn.addEventListener('click', init);
 
 changeWalletBtn.addEventListener('click', reset);
 
-async function getAllChains (apiKey) {
+chains.addEventListener('change', (e) => {
+    chainName = chains.value;
+})
+
+async function getAllChains (apiKey, chain) {
     try {
         await axios
             .get(`https://api.covalenthq.com/v1/chains/?`, {
@@ -93,12 +102,45 @@ async function getAllChains (apiKey) {
                 },
             })
             .then((response) => {
-                console.log(response);
+                const items = response.data.data.items.length;
+                chainList = response.data.data.items;
+
+                sortChainByName();
+
+                for (let i = 0; i < items; i++) {
+                    let opt = document.createElement('option');
+                    opt.value =chainList[i].name;
+                    opt.innerText = chainList[i].label;
+                    if (chain === chainList[i].name) {
+                        opt.setAttribute('selected', '');
+                    }
+                    chains.append(opt);
+                }
+
+                // console.log(chain);
             });
 
     } catch (e) {
+        errorContainer.style.display = 'block';        
+        error.innerText = e.response.data.error_message;
         console.log(e);
     }
+}
+
+function sortChainByName() {
+    chainList.sort((a, b) => {
+        const nameA = a.name.toUpperCase(); // ignore upper and lowercase
+        const nameB = b.name.toUpperCase(); // ignore upper and lowercase
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+      
+        // names must be equal
+        return 0;
+      });
 }
 
 function reset() {
@@ -109,11 +151,11 @@ function reset() {
 function init() {
     const storedApiKey = localStorage.getItem('api-key');
     const storedWallet = localStorage.getItem('wallet');
-    //to-do: const storedChain = localStorage.getItem('chain');
+    const storedChain = localStorage.getItem('chain');
+    chainName = storedChain;
 
     apiKeyElm.value = storedApiKey;
-
-    getAllChains(storedApiKey);
+    getAllChains(storedApiKey, chainName);
 
     if (storedApiKey === null || storedWallet === null) {
         form.style.display = 'block';

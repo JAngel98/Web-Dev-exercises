@@ -48,3 +48,7 @@ input, button {
 input {
     min-width: 300px;
 }
+
+select {
+    width: 150px;
+}
