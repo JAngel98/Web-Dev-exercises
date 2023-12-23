@@ -4,6 +4,8 @@ const contractName = document.getElementById('crypto-name');
 
 const form = document.getElementById('form-data');
 const resultContainer = document.getElementById('result-container');
+const error = document.getElementById('error-data');
+const errorContainer = document.getElementById('error-container');
 const loadingElm = document.getElementById('loading');
 
 const apiKeyElm = document.getElementById('api-key');
@@ -16,6 +18,7 @@ const userWallet = document.getElementById('user-wallet');
 
 const changeWalletBtn = document.getElementById('change-wallet-btn');
 const refreshBalanceBtn = document.getElementById('refresh-balance-btn');
+const resutlBtns = document.getElementById('result-btns');
 
 async function getBalance(apiKey, walletAddress) {
     try {
@@ -48,16 +51,19 @@ async function getBalance(apiKey, walletAddress) {
                 userWallet.innerText = walletAddress;
 
                 loadingElm.style.display = 'none';
+                errorContainer.style.display = 'none';
                 resultContainer.style.display = 'block';
 
                 console.log(response);
             });
 
-    } catch (error) {
-        // to-do next//
-        // separar los botones de result-container
-        resultContainer.style.display = 'block';
-        console.log(error);
+    } catch (e) {
+        loadingElm.style.display = 'none';
+        errorContainer.style.display = 'block';
+        resultContainer.style.display = 'none';
+        
+        error.innerText = e.response.data.error_message;
+        console.log(e);
     }
 
 }
@@ -89,9 +95,13 @@ function init() {
         form.style.display = 'block';
         loadingElm.style.display = 'none';
         resultContainer.style.display = 'none';
+        errorContainer.style.display = 'none'
+        resutlBtns.style.display = 'none';
     } else {
         loadingElm.style.display = 'block';
         resultContainer.style.display = 'none';
+        errorContainer.style.display = 'none';
+        resutlBtns.style.display = 'block';
         getBalance(storedApiKey, storedWallet);
         form.style.display = 'none';
     }
