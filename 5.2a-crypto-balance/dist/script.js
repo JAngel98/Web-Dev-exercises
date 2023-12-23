@@ -86,6 +86,10 @@ refreshBalanceBtn.addEventListener('click', init);
 
 changeWalletBtn.addEventListener('click', reset);
 
+apiKeyElm.addEventListener('input', () => {
+    getAllChains(apiKeyElm.value, chainName);
+})
+
 chains.addEventListener('change', (e) => {
     chainName = chains.value;
 })
@@ -116,8 +120,6 @@ async function getAllChains (apiKey, chain) {
                     }
                     chains.append(opt);
                 }
-
-                // console.log(chain);
             });
 
     } catch (e) {
