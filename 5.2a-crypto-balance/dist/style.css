@@ -47,6 +47,11 @@ input, button {
 
 input {
     min-width: 300px;
+    line-height: 25px;
+}
+
+button {
+    padding: 5px;
 }
 
 select {
