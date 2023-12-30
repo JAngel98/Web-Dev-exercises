@@ -116,7 +116,8 @@ async function getAllChains (apiKey, chain) {
                     opt.value =chainList[i].name;
                     opt.innerText = chainList[i].label;
                     if (chain === chainList[i].name) {
-                        opt.setAttribute('selected', '');
+                        // opt.setAttribute('selected', '');
+                        opt.selected = true;
                     }
                     chains.append(opt);
                 }
