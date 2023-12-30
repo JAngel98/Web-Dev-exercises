@@ -57,13 +57,18 @@ input {
 }
 
 button {
-    padding: 10px;
+    padding: 8.5px;
     border-style: solid;
     border-width: 0;
     background-color: #00cd00;
     color: white;
     cursor: pointer;
-    margin: 20px 0px;
+    margin: 20px 2px;
+}
+
+button:hover {
+    outline: thin solid #00dd00;
+    background-color: #00dd00;
 }
 
 select {
