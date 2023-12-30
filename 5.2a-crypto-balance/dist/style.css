@@ -60,15 +60,15 @@ button {
     padding: 8.5px;
     border-style: solid;
     border-width: 0;
-    background-color: #00cd00;
+    background-color: #10990c;
     color: white;
     cursor: pointer;
     margin: 20px 2px;
 }
 
 button:hover {
-    outline: thin solid #00dd00;
-    background-color: #00dd00;
+    outline: thin solid #10b90c;
+    background-color: #10b90c;
 }
 
 select {
