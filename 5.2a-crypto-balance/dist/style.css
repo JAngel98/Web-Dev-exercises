@@ -79,3 +79,15 @@ select {
 a {
     color: darkkhaki;
   }
+
+a:hover {
+    cursor: pointer;
+}
+
+a:active {
+    color: #10b90c;
+}
+
+a:visited {
+    color: darkgoldenrod;
+}
