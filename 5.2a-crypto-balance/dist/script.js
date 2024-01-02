@@ -7,6 +7,7 @@ const resultContainer = document.getElementById('result-container');
 const error = document.getElementById('error-data');
 const errorContainer = document.getElementById('error-container');
 const loadingElm = document.getElementById('loading');
+const container = document.querySelector('.container');
 
 const apiKeyElm = document.getElementById('api-key');
 const wAddressElm = document.getElementById('wallet-address');
@@ -55,6 +56,7 @@ async function getBalance(apiKey, walletAddress) {
                 userWallet.innerText = walletAddress;
 
                 loadingElm.style.display = 'none';
+                container.style.cursor = 'default';
                 errorContainer.style.display = 'none';
                 resultContainer.style.display = 'block';
 
@@ -63,6 +65,7 @@ async function getBalance(apiKey, walletAddress) {
 
     } catch (e) {
         loadingElm.style.display = 'none';
+        container.style.cursor = 'default';
         errorContainer.style.display = 'block';
         resultContainer.style.display = 'none';
         
@@ -163,11 +166,13 @@ function init() {
     if (storedApiKey === null || storedWallet === null) {
         form.style.display = 'block';
         loadingElm.style.display = 'none';
+        container.style.cursor = 'default';
         resultContainer.style.display = 'none';
         errorContainer.style.display = 'none'
         resutlBtns.style.display = 'none';
     } else {
         loadingElm.style.display = 'block';
+        container.style.cursor = 'wait';
         resultContainer.style.display = 'none';
         errorContainer.style.display = 'none';
         resutlBtns.style.display = 'block';
