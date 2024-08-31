@@ -83,6 +83,7 @@ form.addEventListener('submit', (e) => {
     e.preventDefault();
 
     //localStorage.setItem('api-key', apiKeyElm);
+    localStorage.setItem('logo', chainLogo);
     localStorage.setItem('wallet', wAddressElm.value);
     localStorage.setItem('chain', chainName);
 
@@ -158,6 +159,7 @@ function sortChainByName() {
 
 function reset() {
     localStorage.removeItem('wallet');
+    localStorage.removeItem('logo');
     init();
 }
 
@@ -165,6 +167,9 @@ function init() {
     //const storedApiKey = localStorage.getItem('api-key');
     const storedWallet = localStorage.getItem('wallet');
     const storedChain = localStorage.getItem('chain');
+    const storedLogo = localStorage.getItem('logo');
+
+    chainLogo = storedLogo;
     chainName = storedChain;
 
     //apiKeyElm = storedApiKey;
