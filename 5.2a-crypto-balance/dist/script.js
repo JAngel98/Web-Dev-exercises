@@ -128,7 +128,7 @@ async function getAllChains (apiKey, chain) {
                     opt.innerText = chainList[i].label;
                     if (chain === chainList[i].name) {
                         // opt.setAttribute('selected', '');
-                        chainLogo = chainList[i].black_logo_url;
+                        chainLogo = chainList[i].logo_url;
                         console.log("Chain: " + chainList[i].name, "Logo: " + chainLogo);
                         opt.selected = true;
                     }
