@@ -25,6 +25,7 @@ const resutlBtns = document.getElementById('result-btns');
 
 let chainList = [];
 let chainName = "";
+let chainLogo = "";
 
 async function getBalance(apiKey, walletAddress) {
     try {
@@ -48,7 +49,9 @@ async function getBalance(apiKey, walletAddress) {
                 const rateChange = rate - rate24h;
                 const rateChangePt = (rateChange/rate24h) * 100;
 
-                logoElm.setAttribute('src', response.data.data.items[0].logo_url);
+                //logoElm.setAttribute('src', response.data.data.items[0].logo_url);
+                logoElm.setAttribute('src', chainLogo);
+                console.log(chainLogo);
                 contractName.innerText = response.data.data.items[0].contract_name;
 
                 balanceElm.innerText = balance / Math.pow(10, decimals) + ' ' + symbol;
@@ -123,6 +126,7 @@ async function getAllChains (apiKey, chain) {
                     opt.innerText = chainList[i].label;
                     if (chain === chainList[i].name) {
                         // opt.setAttribute('selected', '');
+                        chainLogo = chainList[i].logo_url;
                         opt.selected = true;
                     }
                     chains.append(opt);
