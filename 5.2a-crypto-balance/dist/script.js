@@ -10,7 +10,7 @@ const loadingElm = document.getElementById('loading');
 const container = document.querySelector('.container');
 
 //const apiKeyElm = document.getElementById('api-key');
-const apiKeyElm = "cqt_rQqFWKkWtXJWxm9bqMRY8Xwk36xX";
+let apiKeyElm = "cqt_rQqFWKkWtXJWxm9bqMRY8Xwk36xX";
 const wAddressElm = document.getElementById('wallet-address');
 const balanceElm = document.getElementById('balance');
 const currencyElm = document.getElementById('currency');
@@ -79,7 +79,7 @@ async function getBalance(apiKey, walletAddress) {
 form.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    localStorage.setItem('api-key', apiKeyElm.value);
+    //localStorage.setItem('api-key', apiKeyElm);
     localStorage.setItem('wallet', wAddressElm.value);
     localStorage.setItem('chain', chainName);
 
@@ -90,12 +90,14 @@ refreshBalanceBtn.addEventListener('click', init);
 
 changeWalletBtn.addEventListener('click', reset);
 
-apiKeyElm.addEventListener('input', () => {
-    getAllChains(apiKeyElm.value, chainName);
-})
+/*apiKeyElm.addEventListener('input', () => {
+    console.log("Chain: " + chainName);
+    getAllChains(apiKeyElm, chainName);
+})*/
 
 chains.addEventListener('change', (e) => {
     chainName = chains.value;
+    console.log("selected chain: " + chainName);
 })
 
 async function getAllChains (apiKey, chain) {
@@ -156,15 +158,15 @@ function reset() {
 }
 
 function init() {
-    const storedApiKey = localStorage.getItem('api-key');
+    //const storedApiKey = localStorage.getItem('api-key');
     const storedWallet = localStorage.getItem('wallet');
     const storedChain = localStorage.getItem('chain');
     chainName = storedChain;
 
-    apiKeyElm.value = storedApiKey;
-    getAllChains(storedApiKey, chainName);
+    //apiKeyElm = storedApiKey;
+    getAllChains(apiKeyElm, chainName);
 
-    if (storedApiKey === null || storedWallet === null) {
+    if (storedWallet === null) {
         form.style.display = 'block';
         loadingElm.style.display = 'none';
         container.style.cursor = 'default';
@@ -177,7 +179,7 @@ function init() {
         resultContainer.style.display = 'none';
         errorContainer.style.display = 'none';
         resutlBtns.style.display = 'block';
-        getBalance(storedApiKey, storedWallet);
+        getBalance(apiKeyElm, storedWallet);
         form.style.display = 'none';
     }
 }
