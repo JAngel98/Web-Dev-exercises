@@ -9,7 +9,8 @@ const errorContainer = document.getElementById('error-container');
 const loadingElm = document.getElementById('loading');
 const container = document.querySelector('.container');
 
-const apiKeyElm = document.getElementById('api-key');
+//const apiKeyElm = document.getElementById('api-key');
+const apiKeyElm = "cqt_rQqFWKkWtXJWxm9bqMRY8Xwk36xX";
 const wAddressElm = document.getElementById('wallet-address');
 const balanceElm = document.getElementById('balance');
 const currencyElm = document.getElementById('currency');
