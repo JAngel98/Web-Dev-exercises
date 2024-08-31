@@ -51,7 +51,6 @@ async function getBalance(apiKey, walletAddress) {
 
                 //logoElm.setAttribute('src', response.data.data.items[0].logo_url);
                 logoElm.setAttribute('src', chainLogo);
-                console.log(chainLogo);
                 contractName.innerText = response.data.data.items[0].contract_name;
 
                 balanceElm.innerText = balance / Math.pow(10, decimals) + ' ' + symbol;
@@ -63,8 +62,6 @@ async function getBalance(apiKey, walletAddress) {
                 container.style.cursor = 'default';
                 errorContainer.style.display = 'none';
                 resultContainer.style.display = 'block';
-
-                // console.log(response);
             });
 
     } catch (e) {
@@ -129,7 +126,6 @@ async function getAllChains (apiKey, chain) {
                     if (chain === chainList[i].name) {
                         // opt.setAttribute('selected', '');
                         chainLogo = chainList[i].logo_url;
-                        console.log("Chain: " + chainList[i].name, "Logo: " + chainLogo);
                         opt.selected = true;
                     }
                     chains.append(opt);
@@ -162,6 +158,11 @@ function sortChainByName() {
 function reset() {
     localStorage.removeItem('wallet');
     localStorage.removeItem('logo');
+    
+    while (chains.length > 0) {                
+        chains.remove(0);
+    }
+
     init();
 }
 
