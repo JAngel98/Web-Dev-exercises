@@ -102,6 +102,7 @@ changeWalletBtn.addEventListener('click', reset);
 chains.addEventListener('change', (e) => {
     chainName = chains.value;
     console.log("selected chain: " + chainName);
+    getAllChains(apiKeyElm, chainName);
 })
 
 async function getAllChains (apiKey, chain) {
@@ -128,6 +129,7 @@ async function getAllChains (apiKey, chain) {
                     if (chain === chainList[i].name) {
                         // opt.setAttribute('selected', '');
                         chainLogo = chainList[i].logo_url;
+                        console.log("Chain: " + chainList[i].name, "Logo: " + chainLogo);
                         opt.selected = true;
                     }
                     chains.append(opt);
