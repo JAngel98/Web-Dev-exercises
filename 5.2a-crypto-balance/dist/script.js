@@ -99,6 +99,13 @@ changeWalletBtn.addEventListener('click', reset);
 chains.addEventListener('change', (e) => {
     chainName = chains.value;
     console.log("selected chain: " + chainName);
+    
+    chains.style.cursor = 'wait';
+
+    while (chains.length > 0) {                
+        chains.remove(0);
+    }
+
     getAllChains(apiKeyElm, chainName);
 })
 
@@ -126,6 +133,7 @@ async function getAllChains (apiKey, chain) {
                     if (chain === chainList[i].name) {
                         // opt.setAttribute('selected', '');
                         chainLogo = chainList[i].logo_url;
+                        console.log("update logo: " + chainLogo);
                         opt.selected = true;
                     }
                     chains.append(opt);
@@ -137,6 +145,8 @@ async function getAllChains (apiKey, chain) {
         error.innerText = e.response.data.error_message;
         console.log(e);
     }
+
+    chains.style.cursor = 'default';
 }
 
 function sortChainByName() {
@@ -175,6 +185,7 @@ function init() {
     chainLogo = storedLogo;
     chainName = storedChain;
 
+    chains.style.cursor = 'wait';
     //apiKeyElm = storedApiKey;
     getAllChains(apiKeyElm, chainName);
 
