@@ -32,10 +32,8 @@ async function getBalance(apiKey, walletAddress) {
         await axios
             .get(`https://api.covalenthq.com/v1/${chainName}/address/${walletAddress}/balances_v2/?`, {
                 headers: {
+                    Authorization: "Bearer " + apiKey,
                     'Content-type': 'application/json',
-                },
-                auth: {
-                    username: apiKey,
                 },
             })
             .then((response) => {
@@ -114,10 +112,8 @@ async function getAllChains (apiKey, chain) {
         await axios
             .get(`https://api.covalenthq.com/v1/chains/?`, {
                 headers: {
+                    Authorization: "Bearer " + apiKey,
                     'Content-type': 'application/json',
-                },
-                auth: {
-                    username: apiKey,
                 },
             })
             .then((response) => {
