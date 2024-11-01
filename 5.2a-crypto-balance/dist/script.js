@@ -133,6 +133,7 @@ async function getAllChains (apiKey, chain) {
                 for (let i = 0; i < items; i++) {
                     let opt = document.createElement('option');
                     opt.value = chainList[i].name;
+                    opt.value = chainList[i].name;
                     opt.innerText = chainList[i].label;
 
                     if (chain === chainList[i].name) {
