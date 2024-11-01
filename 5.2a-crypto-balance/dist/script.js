@@ -16,6 +16,7 @@ const balanceElm = document.getElementById('balance');
 const currencyElm = document.getElementById('currency');
 const rateElm = document.getElementById('rate');
 const getInfoBtn = document.getElementById('get-info');
+const clearWalletInput = document.getElementById('clear-wallet');
 const userWallet = document.getElementById('user-wallet');
 const chains = document.getElementById('chains');
 
@@ -89,6 +90,8 @@ refreshBalanceBtn.addEventListener('click', init);
 
 changeWalletBtn.addEventListener('click', reset);
 
+clearWalletInput.addEventListener('click', () => wAddressElm.value = '');
+
 /*apiKeyElm.addEventListener('input', () => {
     console.log("Chain: " + chainName);
     getAllChains(apiKeyElm, chainName);
@@ -122,14 +125,20 @@ async function getAllChains (apiKey, chain) {
 
                 sortChainByName();
 
+                if (chain == null) {
+                    chainName = chainList[0].name;
+                    console.log('default chain', chainName);
+                }
+
                 for (let i = 0; i < items; i++) {
                     let opt = document.createElement('option');
-                    opt.value =chainList[i].name;
+                    opt.value = chainList[i].name;
                     opt.innerText = chainList[i].label;
+
                     if (chain === chainList[i].name) {
                         // opt.setAttribute('selected', '');
                         chainLogo = chainList[i].logo_url;
-                        console.log("update logo: " + chainLogo);
+                        // console.log("update logo: " + chainLogo);
                         opt.selected = true;
                     }
                     chains.append(opt);
