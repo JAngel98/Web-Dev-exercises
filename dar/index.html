@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reportes DAR - Quejas</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="icon" type="image/x-icon" href="./favicon.png" />
+  </head>
+
+  <body>
+    <header>
+      <nav class="navbar">
+        <div id="pl">Ultima actualización: <span id="updtime"></span></div>
+      </nav>
+      <div class="bar">
+        <ul class="navbar-nav" id="menu">
+          <li><a href="index.html">Quejas</a></li>
+          <li><a href="ordenes.html">Órdenes</a></li>
+          <li><a href="publicas.html">T. Pública</a></li>
+        </ul>
+      </div>
+      <div id="filters">
+        <div id="plantas">
+          Planta:
+          <select name="plants" id="plants"></select>
+        </div>
+        <div id="grupos">
+          Grupo:
+          <select name="groups" id="groups"></select>
+        </div>
+        <div id="claves">
+          Clave:
+          <select name="codes" id="codes"></select>
+        </div>
+        <div id="operarios">
+          Operario:
+          <select name="operators" id="operators"></select>
+        </div>
+        <div>Servicio: <input name="numbers" id="numbers" /></div>
+      </div>
+    </header>
+
+    <div id="container">
+      <button id="updateBtn">Actualizar</button>
+      <div id="loading-container">
+        <div id="loading" style="opacity: 100% !important"></div>
+      </div>
+
+      <table>
+        <caption>
+          <p>BANES (<span id="total_bn"></span>)</p>
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col" style="width: 200px">Planta</th>
+            <th scope="col" style="width: 90px">Servicio</th>
+            <th scope="col" style="width: 500px">Cliente</th>
+            <th scope="col" style="width: 600px">Dirección</th>
+            <th scope="col" style="width: 30px">Tiempo</th>
+            <th scope="col" style="width: 30px">Grupo</th>
+            <th scope="col" style="width: 300px">Problema</th>
+            <th scope="col" style="width: 60px">Clave</th>
+            <th scope="col" style="width: 160px">Ruta</th>
+          </tr>
+        </thead>
+        <tbody id="body_bn"></tbody>
+      </table>
+
+      <table>
+        <caption>
+          <p>RAFAEL FREYRE (<span id="total_rf"></span>)</p>
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col" style="width: 200px">Planta</th>
+            <th scope="col" style="width: 90px">Servicio</th>
+            <th scope="col" style="width: 500px">Cliente</th>
+            <th scope="col" style="width: 600px">Dirección</th>
+            <th scope="col" style="width: 30px">Tiempo</th>
+            <th scope="col" style="width: 30px">Grupo</th>
+            <th scope="col" style="width: 300px">Problema</th>
+            <th scope="col" style="width: 60px">Clave</th>
+            <th scope="col" style="width: 160px">Ruta</th>
+          </tr>
+        </thead>
+        <tbody id="body_rf"></tbody>
+      </table>
+
+      <table>
+        <caption>
+          <p>ANTILLA (<span id="total_at"></span>)</p>
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col" style="width: 200px">Planta</th>
+            <th scope="col" style="width: 90px">Servicio</th>
+            <th scope="col" style="width: 500px">Cliente</th>
+            <th scope="col" style="width: 600px">Dirección</th>
+            <th scope="col" style="width: 30px">Tiempo</th>
+            <th scope="col" style="width: 30px">Grupo</th>
+            <th scope="col" style="width: 300px">Problema</th>
+            <th scope="col" style="width: 60px">Clave</th>
+            <th scope="col" style="width: 160px">Ruta</th>
+          </tr>
+        </thead>
+        <tbody id="body_at"></tbody>
+      </table>
+
+      <table>
+        <caption>
+          <p>BÁGUANOS (<span id="total_lo"></span>)</p>
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col" style="width: 200px">Planta</th>
+            <th scope="col" style="width: 90px">Servicio</th>
+            <th scope="col" style="width: 500px">Cliente</th>
+            <th scope="col" style="width: 600px">Dirección</th>
+            <th scope="col" style="width: 30px">Tiempo</th>
+            <th scope="col" style="width: 30px">Grupo</th>
+            <th scope="col" style="width: 300px">Problema</th>
+            <th scope="col" style="width: 60px">Clave</th>
+            <th scope="col" style="width: 160px">Ruta</th>
+          </tr>
+        </thead>
+        <tbody id="body_lo"></tbody>
+      </table>
+    </div>
+    <script src="script.js" defer></script>
+    <script src="axios.min.js"></script>
+  </body>
+</html>
