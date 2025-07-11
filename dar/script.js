@@ -787,7 +787,7 @@ async function getAreas() {
 }
 
 async function init() {
-	await getAreas();
+	//await getAreas();
 	
 	await getReports();
 
