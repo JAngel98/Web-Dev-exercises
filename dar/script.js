@@ -772,13 +772,10 @@ document.addEventListener("scroll", () => {
 async function getAreas() {
 	try {
 			await axios
-				.post(`https://10.30.12.8/dar/auth/login`, {
+				.get(`https://10.30.12.8/dar/despachador/areas`, {
 					headers: {
 						"X-Requested-With": "XMLHttpRequest",
 					},
-					body: JSON.stringify(
-						{"username":"jose.garcia","password":"1234Asdf*963","destinatario":false}
-					),
 				})
 				.then((response) => {
 					console.log("Areas del usuario:", response);
@@ -790,7 +787,7 @@ async function getAreas() {
 }
 
 async function init() {
-	//await getAreas();
+	await getAreas();
 	
 	await getReports();
 
